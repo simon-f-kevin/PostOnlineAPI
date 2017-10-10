@@ -20,7 +20,7 @@ namespace APITester.APIControllers
         public async Task<DeliveryRouteDTO> GetDeliveryRoute(long deliveryID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:63047/api/DeliveryRoutes/");
+            client.BaseAddress = new Uri(Program.url + "DeliveryRoutes/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

@@ -11,11 +11,12 @@ namespace APITester
 {
     public class Program
     {
-        private static string url = "http://localhost:63047/api/Packages/";
+        public static string url = "http://localhost:63047/api/";
         private static HttpClient client = new HttpClient();
         private static PostOnlineAPIPackage PackageAPI = new PostOnlineAPIPackage();
         private static PostOnlineAPIReciever RecieverAPI = new PostOnlineAPIReciever();
         private static PostOnlineAPIDeliveryRoute DeliveryRouteAPI = new PostOnlineAPIDeliveryRoute();
+
         
 
         static void Main(string[] args)

@@ -25,7 +25,7 @@ namespace APITester.APIControllers
         public async Task<PackageDTO> GetPackage(long packageID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:63047/api/Packages/");
+            client.BaseAddress = new Uri(Program.url + "Packages/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

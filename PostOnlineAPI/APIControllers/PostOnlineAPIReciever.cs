@@ -22,7 +22,7 @@ namespace APITester.APIControllers
         public async Task<RecieverDTO> GetReciever(long recieverID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:63047/api/Recievers/");
+            client.BaseAddress = new Uri(Program.url + "Recievers/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
