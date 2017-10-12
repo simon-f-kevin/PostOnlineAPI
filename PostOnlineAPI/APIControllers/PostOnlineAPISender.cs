@@ -1,5 +1,6 @@
-﻿using PostOnlineAPI.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using PostOnlineAPI;
+using PostOnlineAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,41 +12,42 @@ using System.Threading.Tasks;
 
 namespace PostOnlineAPI.APIControllers
 {
-    public interface IPostOnlineAPIReciever
+    public interface IPostOnlineAPISender
     {
-        Task<RecieverDTO> GetReciever(long recieverID);
-        Task<bool> UpdateReciever(RecieverDTO reciever);
-        Task<bool> CreateReciever(RecieverDTO reciever);
+        Task<SenderDTO> GetSender(long senderID);
+        Task<bool> UpdateSender(SenderDTO sender);
+        Task<bool> CreateSender(SenderDTO sender);
     }
-    class PostOnlineAPIReciever : IPostOnlineAPIReciever
+
+    public class PostOnlineAPISender : IPostOnlineAPISender
     {
-        public async Task<RecieverDTO> GetReciever(long recieverID)
+        public async Task<SenderDTO> GetSender(long senderID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Recievers/");
+            client.BaseAddress = new Uri(Program.url + "Senders/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            RecieverDTO reciever = null;
-            HttpResponseMessage response = await client.GetAsync(recieverID.ToString()).ConfigureAwait(false);
+            SenderDTO sender = null;
+            HttpResponseMessage response = await client.GetAsync(senderID.ToString()).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                reciever = JsonConvert.DeserializeObject<RecieverDTO>(responseString);
-                return reciever;
+                sender = JsonConvert.DeserializeObject<SenderDTO>(responseString);
+                return sender;
             }
             return null;
         }
 
-        public async Task<bool> UpdateReciever(RecieverDTO reciever)
+        public async Task<bool> UpdateSender(SenderDTO sender)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Recievers/");
+            client.BaseAddress = new Uri(Program.url + "Senders/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpContent httpobject = new StringContent(JsonConvert.SerializeObject(reciever), Encoding.UTF8, "application/json");
-            var id = reciever.ReciverID;
+            HttpContent httpobject = new StringContent(JsonConvert.SerializeObject(sender), Encoding.UTF8, "application/json");
+            var id = sender.SenderID;
             var response = await client.PutAsync(id.ToString(), httpobject).ConfigureAwait(false);
             var expected = (int)HttpStatusCode.NoContent;
             if (expected == (int)response.StatusCode)
@@ -54,16 +56,15 @@ namespace PostOnlineAPI.APIControllers
             }
             return false;
         }
-
-        public async Task<bool> CreateReciever(RecieverDTO reciever)
+        public async Task<bool> CreateSender(SenderDTO sender)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Recievers/");
+            client.BaseAddress = new Uri(Program.url + "Senders/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpContent httpobject = new StringContent(JsonConvert.SerializeObject(reciever), Encoding.UTF8, "application/json");
-            var id = reciever.ReciverID;
+            HttpContent httpobject = new StringContent(JsonConvert.SerializeObject(sender), Encoding.UTF8, "application/json");
+            var id = sender.SenderID;
             HttpResponseMessage response = await client.PostAsync("", httpobject).ConfigureAwait(false);
             var expected = (int)HttpStatusCode.OK;
             if (expected == (int)response.StatusCode)

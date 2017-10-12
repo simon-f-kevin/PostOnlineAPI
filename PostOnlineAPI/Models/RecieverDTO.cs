@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace APITester.Models
+namespace PostOnlineAPI.Models
 {
     public class RecieverDTO
     {
@@ -14,5 +14,6 @@ namespace APITester.Models
         public String LastName { get; set; }
         public String Password { get { return "lol trodde du det?"; } set { } }
         public virtual List<long> PackagesID { get; set; }
+        public String PhoneNumber { get; set; }
     }
 }

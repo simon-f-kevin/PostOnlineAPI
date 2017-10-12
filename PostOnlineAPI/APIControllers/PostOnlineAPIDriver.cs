@@ -1,5 +1,5 @@
-﻿using PostOnlineAPI.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using PostOnlineAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,41 +11,43 @@ using System.Threading.Tasks;
 
 namespace PostOnlineAPI.APIControllers
 {
-    public interface IPostOnlineAPIReciever
+    public interface IPostOnlineAPIDriver
     {
-        Task<RecieverDTO> GetReciever(long recieverID);
-        Task<bool> UpdateReciever(RecieverDTO reciever);
-        Task<bool> CreateReciever(RecieverDTO reciever);
+        Task<DriverDTO> GetDriver(long driverID);
+        Task<bool> UpdateDriver(DriverDTO driver);
+        Task<bool> CreateDriver(DriverDTO driver);
+
     }
-    class PostOnlineAPIReciever : IPostOnlineAPIReciever
+
+    public class PostOnlineAPIDriver : IPostOnlineAPIDriver
     {
-        public async Task<RecieverDTO> GetReciever(long recieverID)
+        public async Task<DriverDTO> GetDriver(long driverID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Recievers/");
+            client.BaseAddress = new Uri(Program.url + "Drivers/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            RecieverDTO reciever = null;
-            HttpResponseMessage response = await client.GetAsync(recieverID.ToString()).ConfigureAwait(false);
+            DriverDTO driver = null;
+            HttpResponseMessage response = await client.GetAsync(driverID.ToString()).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
                 var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                reciever = JsonConvert.DeserializeObject<RecieverDTO>(responseString);
-                return reciever;
+                driver = JsonConvert.DeserializeObject<DriverDTO>(responseString);
+                return driver;
             }
             return null;
         }
 
-        public async Task<bool> UpdateReciever(RecieverDTO reciever)
+        public async Task<bool> UpdateDriver(DriverDTO driver)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Recievers/");
+            client.BaseAddress = new Uri(Program.url + "Drivers/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpContent httpobject = new StringContent(JsonConvert.SerializeObject(reciever), Encoding.UTF8, "application/json");
-            var id = reciever.ReciverID;
+            HttpContent httpobject = new StringContent(JsonConvert.SerializeObject(driver), Encoding.UTF8, "application/json");
+            var id = driver.DriverID;
             var response = await client.PutAsync(id.ToString(), httpobject).ConfigureAwait(false);
             var expected = (int)HttpStatusCode.NoContent;
             if (expected == (int)response.StatusCode)
@@ -55,15 +57,15 @@ namespace PostOnlineAPI.APIControllers
             return false;
         }
 
-        public async Task<bool> CreateReciever(RecieverDTO reciever)
+        public async Task<bool> CreateDriver(DriverDTO driver)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Recievers/");
+            client.BaseAddress = new Uri(Program.url + "Drivers/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpContent httpobject = new StringContent(JsonConvert.SerializeObject(reciever), Encoding.UTF8, "application/json");
-            var id = reciever.ReciverID;
+            HttpContent httpobject = new StringContent(JsonConvert.SerializeObject(driver), Encoding.UTF8, "application/json");
+            var id = driver.DriverID;
             HttpResponseMessage response = await client.PostAsync("", httpobject).ConfigureAwait(false);
             var expected = (int)HttpStatusCode.OK;
             if (expected == (int)response.StatusCode)

@@ -1,5 +1,5 @@
-﻿using APITester.APIControllers;
-using APITester.Models;
+﻿using PostOnlineAPI.APIControllers;
+using PostOnlineAPI.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace APITester
+namespace PostOnlineAPI
 {
     public class Program
     {
@@ -16,15 +16,15 @@ namespace APITester
         private static PostOnlineAPIPackage PackageAPI = new PostOnlineAPIPackage();
         private static PostOnlineAPIReciever RecieverAPI = new PostOnlineAPIReciever();
         private static PostOnlineAPIDeliveryRoute DeliveryRouteAPI = new PostOnlineAPIDeliveryRoute();
-
-        
+        private static PostOnlineAPISender SenderAPI = new PostOnlineAPISender();
+        private static PostOnlineAPIDriver DriverAPI = new PostOnlineAPIDriver();
 
         static void Main(string[] args)
         {
             RunProgram();
-            
         }
 
+        
         private static void RunProgram()
         {
             int choice = 0;
@@ -46,6 +46,13 @@ namespace APITester
                 Console.WriteLine("7. GetDeliveryRoute");
                 Console.WriteLine("8. GetPackageForReciever");
                 Console.WriteLine("9. GetPackageForDeliveryRoute");
+                Console.WriteLine("10. GetPackageForSenderID");
+                Console.WriteLine("11. GetSender");
+                Console.WriteLine("12. UpdateSender");
+                Console.WriteLine("13. CreateSender");
+                Console.WriteLine("14. GetDriver");
+                Console.WriteLine("15. UpdateDriver");
+                Console.WriteLine("16. CreateDriver");
                 Console.WriteLine("0. to exit");
                 choice = int.Parse(Console.ReadLine());
                 switch (choice)
@@ -104,7 +111,50 @@ namespace APITester
                             id = Console.ReadLine();
                             RunGetPackageForDeliveryRoute(Convert.ToInt64(id)).Wait();
                             break;
-                        default:
+                        case 10:
+                            Console.Clear();
+                            Console.WriteLine("Pick a sender id");
+                            id = Console.ReadLine();
+                            RunGetPackageForSenderID(Convert.ToInt64(id)).Wait();
+                            break;
+                        case 11:
+                            Console.Clear();
+                            Console.WriteLine("Pick a sender id");
+                            id = Console.ReadLine();
+                            RunGetSender(Convert.ToInt64(id)).Wait();
+                            break;
+                        case 12:
+                            Console.Clear();
+                            Console.WriteLine("Pick a sender id");
+                            id = Console.ReadLine();
+                            RunUpdateSender(Convert.ToInt64(id)).Wait();
+                            break;
+                        case 13:
+                            Console.Clear();
+                            Console.WriteLine("Pick a sender id");
+                            id = Console.ReadLine();
+                            RunCreateSender(Convert.ToInt64(id)).Wait();
+                            break;
+                        case 14:
+                            Console.Clear();
+                            Console.WriteLine("Pick a driver id");
+                            id = Console.ReadLine();
+                            RunGetDriver(Convert.ToInt64(id)).Wait();
+                            break;
+                        case 15:
+                            Console.Clear();
+                            Console.WriteLine("Pick a driver id");
+                            id = Console.ReadLine();
+                            RunUpdateDriver(Convert.ToInt64(id)).Wait();
+                            break;
+                        case 16:
+                            Console.Clear();
+                            Console.WriteLine("Pick a driver id");
+                            id = Console.ReadLine();
+                            RunCreateDriver(Convert.ToInt64(id)).Wait();
+                            break;
+
+                    default:
                         Environment.Exit(0);
                             break;
                     }
@@ -113,6 +163,136 @@ namespace APITester
           
 
         }
+        #region/*Driver*/
+        private static async Task RunGetDriver(long id)
+        {
+            try
+            {
+                var result = Task.Run(() => DriverAPI.GetDriver(id));
+                var driver = result.Result;
+                Console.WriteLine(JsonConvert.SerializeObject(driver));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadLine();
+        }
+
+        private static async Task RunUpdateDriver(long id)
+        {
+            var driver = new DriverDTO
+            {
+                DriverID = id,
+                FirstName = "Gösta",
+                LastName = "Ladugård",
+                Latitude = "",
+                Longitude = "",
+                PhoneNumber = "112"
+            };
+            try
+            {
+                var result = Task.Run(() => DriverAPI.UpdateDriver(driver));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine("Press enter..");
+            Console.ReadLine();
+            RunGetDriver(id).Wait();
+        }
+
+        private static async Task RunCreateDriver(long id)
+        {
+            var driver = new DriverDTO
+            {
+                DriverID = id,
+                FirstName = "Putzor",
+                LastName = "Dragonslayer",
+                Latitude = "0.0",
+                Longitude = "0.0",
+                PhoneNumber = "911"
+            };
+            try
+            {
+                var result = Task.Run(() => DriverAPI.CreateDriver(driver));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine("Press enter..");
+            Console.ReadLine();
+            RunGetDriver(id).Wait();
+        }
+        #endregion
+        #region/*Sender*/
+        private static async Task RunGetSender(long id)
+        {
+            try
+            {
+                var result = Task.Run(() => SenderAPI.GetSender(id));
+
+                var sender = result.Result;
+
+                Console.WriteLine(JsonConvert.SerializeObject(sender));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadLine();
+        }
+        private static async Task RunUpdateSender(long id)
+        {
+            var sender = new SenderDTO
+            {
+                SenderID = id,
+                SenderName = "thepiratebay.com",
+                UserName = "updated",
+                SenderURL = "updated.se"
+            };
+            try
+            {
+                var result = Task.Run(() => SenderAPI.UpdateSender(sender));
+
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine("Updated sender");
+            Console.WriteLine("Press enter..");
+            Console.ReadLine();
+            RunGetSender(id).Wait();
+        }
+        private static async Task RunCreateSender(long id)
+        {
+
+            var sender = new SenderDTO
+            {
+                SenderID = id,
+                SenderName = "Björns Trosor",
+                UserName = "Björn",
+                SenderURL = "thepiratebay.se"
+            };
+
+            try
+            {
+                var result = Task.Run(() => SenderAPI.CreateSender(sender));
+
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine("Press enter..");
+            Console.ReadLine();
+            RunGetSender(id).Wait();
+        }
+        #endregion
+        #region/*packages, deliveries and recievers */
 
         private static async Task RunGetPackage(long id)
         {
@@ -134,9 +314,7 @@ namespace APITester
 
         private static async Task RunUpdatePackage(long id)
         {
-            client.BaseAddress = new Uri("http://localhost:63047/api/Packages/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            
             var hej = new PackageDTO
             {
                 PackageID = id,
@@ -199,7 +377,6 @@ namespace APITester
             {
                 Console.WriteLine(ex.Message);
             }
-            Console.ReadLine();
         }
 
         private static async Task RunUpdateReciever(long id)
@@ -266,6 +443,16 @@ namespace APITester
             }
             Console.ReadLine();
         }
+        private static async Task RunGetPackageForSenderID(long id)
+        {
+            var list = PackageAPI.GetPackagesForSenderID(id).Result;
+            foreach (var package in list)
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(package));
+                Console.WriteLine("\n\n");
+            }
+            Console.ReadLine();
+        }
 
         private static async Task RunGetReciever(long id)
         {
@@ -302,5 +489,17 @@ namespace APITester
             }
             Console.ReadLine();
         }
+        #endregion
+        #region/*Test method*/
+        private static void RunTesting(int id)
+        {
+            //for(int i = 1; i < 3; i++)
+            //{
+            //    RunGetSender(i).Wait();
+            //}
+            //RunGetSender(10).Wait();
+            RunCreateDriver(3).Wait();
+        }
+        #endregion
     }
 }

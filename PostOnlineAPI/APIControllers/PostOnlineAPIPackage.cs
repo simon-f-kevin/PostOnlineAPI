@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
-using APITester.Models;
+using PostOnlineAPI.Models;
 
-namespace APITester.APIControllers
+namespace PostOnlineAPI.APIControllers
 {
     public interface IPostOnlineAPIPackage
     {
@@ -17,7 +17,7 @@ namespace APITester.APIControllers
         Task<bool> CreatePackage(PackageDTO package);
         List<PackageDTO> GetPackagesForRecieverID(long recieverID);
         List<PackageDTO> GetPackagesForDeliveryID(long deliveryID);
-        List<PackageDTO> GetPackagesForSenderID(long senderID);
+        Task<List<PackageDTO>> GetPackagesForSenderID(long senderID);
     }
 
     public class PostOnlineAPIPackage : IPostOnlineAPIPackage
@@ -44,7 +44,7 @@ namespace APITester.APIControllers
         public async Task<bool> UpdatePackage(PackageDTO package)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:63047/api/Packages/");
+            client.BaseAddress = new Uri(Program.url + "Packages/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -62,7 +62,7 @@ namespace APITester.APIControllers
         public async Task<bool> CreatePackage(PackageDTO package)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:63047/api/Packages/");
+            client.BaseAddress = new Uri(Program.url + "Packages/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -80,7 +80,7 @@ namespace APITester.APIControllers
         public List<PackageDTO> GetPackagesForRecieverID(long recieverID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:63047/api/Recievers/");
+            client.BaseAddress = new Uri(Program.url + "Recievers/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -102,7 +102,7 @@ namespace APITester.APIControllers
         public List<PackageDTO> GetPackagesForDeliveryID(long deliveryID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:63047/api/DeliveryRoutes/");
+            client.BaseAddress = new Uri(Program.url + "DeliveryRoutes/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -121,11 +121,23 @@ namespace APITester.APIControllers
             return new List<PackageDTO>();
         }
 
-        public List<PackageDTO> GetPackagesForSenderID(long senderID)
+        public async Task<List<PackageDTO>> GetPackagesForSenderID(long senderID)
         {
-            // TODO: this will be implemented in sprint 3
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(Program.url + "Senders/{senderID}/Packages");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            throw new NotImplementedException();
+            List<PackageDTO> packages = null;
+            HttpResponseMessage response = await client.GetAsync(senderID.ToString()).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                packages = JsonConvert.DeserializeObject<List<PackageDTO>>(responseString);
+                return packages;
+            }
+
+            return new List<PackageDTO>();
         }
     }
 }

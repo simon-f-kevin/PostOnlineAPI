@@ -1,4 +1,4 @@
-﻿using APITester.Models;
+﻿using PostOnlineAPI.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APITester.APIControllers
+namespace PostOnlineAPI.APIControllers
 {
     interface IPostOnlineAPIDeliveryRoute
     {
