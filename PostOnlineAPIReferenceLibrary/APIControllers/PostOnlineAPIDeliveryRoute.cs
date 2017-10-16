@@ -1,26 +1,23 @@
-﻿using PostOnlineAPI.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using PostOnlineAPIReferenceLibrary.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace PostOnlineAPI.APIControllers
+namespace PostOnlineAPIReferenceLibrary.APIControllers
 {
-    interface IPostOnlineAPIDeliveryRoute
+    public interface IPostOnlineAPIDeliveryRoute
     {
         Task<DeliveryRouteDTO> GetDeliveryRoute(long deliveryID);
     }
 
-    class PostOnlineAPIDeliveryRoute : IPostOnlineAPIDeliveryRoute
+    public class PostOnlineAPIDeliveryRoute : IPostOnlineAPIDeliveryRoute
     {
         public async Task<DeliveryRouteDTO> GetDeliveryRoute(long deliveryID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "DeliveryRoutes/");
+            client.BaseAddress = new Uri(API.url + "DeliveryRoutes/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

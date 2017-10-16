@@ -1,23 +1,22 @@
-﻿using PostOnlineAPI.APIControllers;
-using PostOnlineAPI.Models;
+﻿using PostOnlineAPIReferenceLibrary.APIControllers;
+using PostOnlineAPIReferenceLibrary.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace PostOnlineAPI
+namespace PostOnlineAPIDemo
 {
     public class Program
     {
-        public static string url = "http://localhost:63047/api/";
+        //public static string url = "http://localhost:63047/api/";
         private static HttpClient client = new HttpClient();
-        private static PostOnlineAPIPackage PackageAPI = new PostOnlineAPIPackage();
-        private static PostOnlineAPIReciever RecieverAPI = new PostOnlineAPIReciever();
-        private static PostOnlineAPIDeliveryRoute DeliveryRouteAPI = new PostOnlineAPIDeliveryRoute();
-        private static PostOnlineAPISender SenderAPI = new PostOnlineAPISender();
-        private static PostOnlineAPIDriver DriverAPI = new PostOnlineAPIDriver();
+        private static IPostOnlineAPIPackage PackageAPI = new PostOnlineAPIPackage();
+        private static IPostOnlineAPIReciever RecieverAPI = new PostOnlineAPIReciever();
+        private static IPostOnlineAPIDeliveryRoute DeliveryRouteAPI = new PostOnlineAPIDeliveryRoute();
+        private static IPostOnlineAPISender SenderAPI = new PostOnlineAPISender();
+        private static IPostOnlineAPIDriver DriverAPI = new PostOnlineAPIDriver();
 
         static void Main(string[] args)
         {

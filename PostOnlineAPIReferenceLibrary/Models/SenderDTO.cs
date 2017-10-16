@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PostOnlineAPI.Models
+namespace PostOnlineAPIReferenceLibrary.Models
 {
     public class SenderDTO
     {

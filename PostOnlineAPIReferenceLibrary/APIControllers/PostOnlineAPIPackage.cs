@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
-using PostOnlineAPI.Models;
+using PostOnlineAPIReferenceLibrary.Models;
 
-namespace PostOnlineAPI.APIControllers
+namespace PostOnlineAPIReferenceLibrary.APIControllers
 {
     public interface IPostOnlineAPIPackage
     {
@@ -25,7 +25,7 @@ namespace PostOnlineAPI.APIControllers
         public async Task<PackageDTO> GetPackage(long packageID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Packages/");
+            client.BaseAddress = new Uri(API.url + "Packages/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -44,7 +44,7 @@ namespace PostOnlineAPI.APIControllers
         public async Task<bool> UpdatePackage(PackageDTO package)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Packages/");
+            client.BaseAddress = new Uri(API.url + "Packages/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -62,7 +62,7 @@ namespace PostOnlineAPI.APIControllers
         public async Task<bool> CreatePackage(PackageDTO package)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Packages/");
+            client.BaseAddress = new Uri(API.url + "Packages/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -80,7 +80,7 @@ namespace PostOnlineAPI.APIControllers
         public List<PackageDTO> GetPackagesForRecieverID(long recieverID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Recievers/");
+            client.BaseAddress = new Uri(API.url + "Recievers/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -102,7 +102,7 @@ namespace PostOnlineAPI.APIControllers
         public List<PackageDTO> GetPackagesForDeliveryID(long deliveryID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "DeliveryRoutes/");
+            client.BaseAddress = new Uri(API.url + "DeliveryRoutes/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -124,7 +124,7 @@ namespace PostOnlineAPI.APIControllers
         public async Task<List<PackageDTO>> GetPackagesForSenderID(long senderID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Senders/{senderID}/Packages");
+            client.BaseAddress = new Uri(API.url + "Senders/{senderID}/Packages");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

@@ -45,22 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIControllers\PostOnlineAPIDeliveryRoute.cs" />
-    <Compile Include="APIControllers\PostOnlineAPIDriver.cs" />
-    <Compile Include="APIControllers\PostOnlineAPIPackage.cs" />
-    <Compile Include="APIControllers\PostOnlineAPIReciever.cs" />
-    <Compile Include="APIControllers\PostOnlineAPISender.cs" />
-    <Compile Include="Models\DeliveryRouteDTO.cs" />
-    <Compile Include="Models\DriverDTO.cs" />
-    <Compile Include="Models\PackageDTO.cs" />
-    <Compile Include="Models\RecieverDTO.cs" />
-    <Compile Include="Models\SenderDTO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PostOnlineAPIReferenceLibrary\PostOnlineAPIReferenceLibrary.csproj">
+      <Project>{649c6943-29ec-4ac3-b279-50b24d7a7071}</Project>
+      <Name>PostOnlineAPIReferenceLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

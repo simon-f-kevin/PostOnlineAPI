@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PostOnlineAPI.Models
+namespace PostOnlineAPIReferenceLibrary.Models
 {
     public class RecieverDTO
     {

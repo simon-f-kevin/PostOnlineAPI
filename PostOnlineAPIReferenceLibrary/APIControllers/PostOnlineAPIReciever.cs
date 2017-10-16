@@ -1,15 +1,13 @@
-﻿using PostOnlineAPI.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using PostOnlineAPIReferenceLibrary.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PostOnlineAPI.APIControllers
+namespace PostOnlineAPIReferenceLibrary.APIControllers
 {
     public interface IPostOnlineAPIReciever
     {
@@ -17,12 +15,12 @@ namespace PostOnlineAPI.APIControllers
         Task<bool> UpdateReciever(RecieverDTO reciever);
         Task<bool> CreateReciever(RecieverDTO reciever);
     }
-    class PostOnlineAPIReciever : IPostOnlineAPIReciever
+    public class PostOnlineAPIReciever : IPostOnlineAPIReciever
     {
         public async Task<RecieverDTO> GetReciever(long recieverID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Recievers/");
+            client.BaseAddress = new Uri(API.url + "Recievers/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -40,7 +38,7 @@ namespace PostOnlineAPI.APIControllers
         public async Task<bool> UpdateReciever(RecieverDTO reciever)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Recievers/");
+            client.BaseAddress = new Uri(API.url + "Recievers/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -58,7 +56,7 @@ namespace PostOnlineAPI.APIControllers
         public async Task<bool> CreateReciever(RecieverDTO reciever)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Program.url + "Recievers/");
+            client.BaseAddress = new Uri(API.url + "Recievers/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
