@@ -11,8 +11,23 @@ namespace PostOnlineAPIReferenceLibrary.APIControllers
 {
     public interface IPostOnlineAPIReciever
     {
+        /// <summary>
+        /// Method for getting a RecieverDTO object from the PostOnline system. 
+        /// </summary>
+        /// <param name="recieverID"></param>
+        /// <returns></returns>
         Task<RecieverDTO> GetReciever(long recieverID);
+        /// <summary>
+        /// Method for updating an existing Reciever in the PostOnline system. 
+        /// </summary>
+        /// <param name="reciever"></param>
+        /// <returns></returns>
         Task<bool> UpdateReciever(RecieverDTO reciever);
+        /// <summary>
+        /// Method for creating a new Reciever in the PostOnline system. 
+        /// </summary>
+        /// <param name="reciever"></param>
+        /// <returns></returns>
         Task<bool> CreateReciever(RecieverDTO reciever);
     }
     public class PostOnlineAPIReciever : IPostOnlineAPIReciever

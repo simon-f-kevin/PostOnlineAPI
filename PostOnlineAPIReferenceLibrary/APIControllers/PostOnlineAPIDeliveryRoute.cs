@@ -9,6 +9,11 @@ namespace PostOnlineAPIReferenceLibrary.APIControllers
 {
     public interface IPostOnlineAPIDeliveryRoute
     {
+        /// <summary>
+        /// Method for getting a DeliveryRouteDTO object from PostOnline. 
+        /// </summary>
+        /// <param name="deliveryID"></param>
+        /// <returns></returns>
         Task<DeliveryRouteDTO> GetDeliveryRoute(long deliveryID);
     }
 

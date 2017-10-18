@@ -11,8 +11,23 @@ namespace PostOnlineAPIReferenceLibrary.APIControllers
 {
     public interface IPostOnlineAPISender
     {
+        /// <summary>
+        /// Method for getting a SenderDTO object from the PostOnline system.
+        /// </summary>
+        /// <param name="senderID"></param>
+        /// <returns></returns>
         Task<SenderDTO> GetSender(long senderID);
+        /// <summary>
+        /// Method for updating an exsiting Sender in the PostOnline system.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns></returns>
         Task<bool> UpdateSender(SenderDTO sender);
+        /// <summary>
+        /// Method for creating a new Sender in the PostOnline system.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns></returns>
         Task<bool> CreateSender(SenderDTO sender);
     }
 

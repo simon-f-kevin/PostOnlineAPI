@@ -11,10 +11,24 @@ namespace PostOnlineAPIReferenceLibrary.APIControllers
 {
     public interface IPostOnlineAPIDriver
     {
+        /// <summary>
+        /// Method for getting a DriverDTO object from PostOnline.
+        /// </summary>
+        /// <param name="driverID"></param>
+        /// <returns></returns>
         Task<DriverDTO> GetDriver(long driverID);
+        /// <summary>
+        /// Method for updating an existing Driver in the PostOnline system.
+        /// </summary>
+        /// <param name="driver"></param>
+        /// <returns></returns>
         Task<bool> UpdateDriver(DriverDTO driver);
+        /// <summary>
+        /// Method for creating a new Driver in the PostOnline system. 
+        /// </summary>
+        /// <param name="driver"></param>
+        /// <returns></returns>
         Task<bool> CreateDriver(DriverDTO driver);
-
     }
 
     public class PostOnlineAPIDriver : IPostOnlineAPIDriver
@@ -36,7 +50,7 @@ namespace PostOnlineAPIReferenceLibrary.APIControllers
             }
             return null;
         }
-
+        
         public async Task<bool> UpdateDriver(DriverDTO driver)
         {
             HttpClient client = new HttpClient();
@@ -54,7 +68,7 @@ namespace PostOnlineAPIReferenceLibrary.APIControllers
             }
             return false;
         }
-
+        
         public async Task<bool> CreateDriver(DriverDTO driver)
         {
             HttpClient client = new HttpClient();

@@ -12,11 +12,41 @@ namespace PostOnlineAPIReferenceLibrary.APIControllers
 {
     public interface IPostOnlineAPIPackage
     {
+        /// <summary>
+        /// Method for getting a PackageDTO object from the PostOnline system. 
+        /// </summary>
+        /// <param name="packageID"></param>
+        /// <returns></returns>
         Task<PackageDTO> GetPackage(long packageID);
+        /// <summary>
+        /// Method for updating an existing Package in the PostOnline system.
+        /// </summary>
+        /// <param name="package"></param>
+        /// <returns></returns>
         Task<bool> UpdatePackage(PackageDTO package);
+        /// <summary>
+        /// Method for creating a new Package in the PostOnline system. 
+        /// </summary>
+        /// <param name="package"></param>
+        /// <returns></returns>
         Task<bool> CreatePackage(PackageDTO package);
+        /// <summary>
+        /// Method for getting all Packages for a specific Receiever from the PostOnline system.
+        /// </summary>
+        /// <param name="recieverID"></param>
+        /// <returns></returns>
         List<PackageDTO> GetPackagesForRecieverID(long recieverID);
+        /// <summary>
+        /// Method for getting all Packages for a DeliveryRoute from PostOnline. 
+        /// </summary>
+        /// <param name="deliveryID"></param>
+        /// <returns></returns>
         List<PackageDTO> GetPackagesForDeliveryID(long deliveryID);
+        /// <summary>
+        /// Method for getting all Packages for a specific Sender from PostOnline.
+        /// </summary>
+        /// <param name="senderID"></param>
+        /// <returns></returns>
         Task<List<PackageDTO>> GetPackagesForSenderID(long senderID);
     }
 
