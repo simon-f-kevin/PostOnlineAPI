@@ -22,7 +22,7 @@ namespace PostOnlineAPIReferenceLibrary.APIControllers
         public async Task<DeliveryRouteDTO> GetDeliveryRoute(long deliveryID)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(API.url + "DeliveryRoutes/");
+            client.BaseAddress = new Uri(API.url + "delivery-routes/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
